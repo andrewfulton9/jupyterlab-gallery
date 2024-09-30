@@ -1,6 +1,6 @@
 # jupyterlab-gallery
 
-![Extension status](https://img.shields.io/badge/status-draft-critical 'Not yet working')
+![Extension status](https://img.shields.io/badge/status-ready-success 'Ready to be used')
 [![Github Actions Status](https://github.com/nebari-dev/jupyterlab-gallery/workflows/Build/badge.svg)](https://github.com/nebari-dev/jupyterlab-gallery/actions/workflows/build.yml)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/nebari-dev/jupyterlab-gallery/main?urlpath=lab)
 
@@ -10,7 +10,33 @@ This extension is composed of a Python package named `jupyterlab-gallery`
 for the server extension and a NPM package named `jupyterlab-gallery`
 for the frontend extension.
 
-When [`jupyterlab-new-launcher`](https://github.com/nebari-dev/jupyterlab-new-launcher) is installed, the gallery will be added as a "Gallery" section in the launcher; otherwise it will be shown in the left sidebar.
+When [`jupyterlab-launchpad`](https://github.com/nebari-dev/jupyterlab-launchpad) is installed, the gallery will be added as a "Gallery" section in the launcher:
+
+![in launchpad][in-launchpad]
+
+Otherwise it will be shown in the left sidebar.
+
+[in-launchpad]: https://raw.githubusercontent.com/nebari-dev/jupyterlab-gallery/main/ui-tests/tests/jupyterlab_gallery.spec.ts-snapshots/in-launchpad-linux.png
+
+## Usage
+
+Hover over the tile with exhibit that you are interested in to reveal a "Download" button:
+
+![hover before cloning][hover-fresh]
+
+Clicking this button will start the download process, which you can monitor by tracking the progress bar that shows up in the tile.
+
+After cloning has completed, hover over the tile again to reveal "Open Folder" and "Update" buttons:
+
+![hover after cloning][hover-cloned]
+
+The update button becomes active once a new version of the cloned repository becomes available (once new commits are pushed to the tracked branch):
+
+![hover with updates][hover-update]
+
+[hover-fresh]: https://raw.githubusercontent.com/nebari-dev/jupyterlab-gallery/main/ui-tests/tests/jupyterlab_gallery.spec.ts-snapshots/on-hover-fresh-linux.png
+[hover-cloned]: https://raw.githubusercontent.com/nebari-dev/jupyterlab-gallery/main/ui-tests/tests/jupyterlab_gallery.spec.ts-snapshots/on-hover-cloned-linux.png
+[hover-update]: https://raw.githubusercontent.com/nebari-dev/jupyterlab-gallery/main/ui-tests/tests/jupyterlab_gallery.spec.ts-snapshots/on-hover-updates-pending-linux.png
 
 ## Configuration
 
@@ -65,6 +91,12 @@ To run it as a single-user server in the JupyterHub context use:
 
 ```bash
 jupyterhub-gallery
+```
+
+For additional help see the `GalleryManager` section in the output of:
+
+```bash
+jupyterlab-gallery --help-all
 ```
 
 ## Requirements

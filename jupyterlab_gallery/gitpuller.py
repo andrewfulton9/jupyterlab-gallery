@@ -99,7 +99,6 @@ class ProgressGitPuller(GitPuller):
                         progress=progress,
                     )
                 except Exception as e:
-                    print("printing raised exception", e)
                     if not timeout_event.is_set():
                         progress.queue.put(e)
                 finally:
@@ -110,8 +109,6 @@ class ProgressGitPuller(GitPuller):
         timer.start()
         clone_task = threading.Thread(target=clone_task)
         clone_task.start()
-        # TODO: add configurable timeout
-        # timeout = 60
 
         while True:
             item = progress.queue.get(True)  # , timeout)

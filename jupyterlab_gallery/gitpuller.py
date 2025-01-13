@@ -111,7 +111,7 @@ class ProgressGitPuller(GitPuller):
         clone_task.start()
 
         while True:
-            item = progress.queue.get(True)  # , timeout)
+            item = progress.queue.get(True)
             if item is None:
                 break
             if isinstance(item, TimeoutError):

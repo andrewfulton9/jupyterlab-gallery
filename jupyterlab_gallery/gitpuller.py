@@ -116,7 +116,6 @@ class ProgressGitPuller(GitPuller):
                 break
             if isinstance(item, TimeoutError):
                 clone_task.join(timeout=0)
-                progress.update(0, progress._cur_line, 0, "Clone operation timed out")
                 raise item
             yield item
 
@@ -226,7 +225,6 @@ class SyncHandlerBase(JupyterHandler):
             self.gp_thread = threading.Thread(target=pull)
             self.gp_thread.start()
         except Exception as e:
-            print("exception thrown")
             q.put_nowait(e)
         finally:
             self.git_lock.release()

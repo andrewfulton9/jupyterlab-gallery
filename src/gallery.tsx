@@ -77,7 +77,7 @@ export class GalleryWidget extends ReactWidget {
       },
       updateLocalPath: async (new_path: string) => {
         const xsrfTokenMatch = document.cookie.match('\\b_xsrf=([^;]*)\\b');
-        const args: Record<string, string > = {
+        const args: Record<string, string> = {
           new_path: new_path
         };
         if (xsrfTokenMatch) {
@@ -93,11 +93,10 @@ export class GalleryWidget extends ReactWidget {
     fileChanged.connect((_, args) => {
       if (args.type === 'delete') {
         this._load();
-      }
-      else if (args.type === 'rename') {
-        let newPath = args.newValue?.path
+      } else if (args.type === 'rename') {
+        const newPath = args.newValue?.path;
         if (newPath) {
-          this._actions.updateLocalPath(newPath)
+          this._actions.updateLocalPath(newPath);
         }
         this._load();
       }

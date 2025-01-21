@@ -1,5 +1,6 @@
 import json
 from typing import cast
+from pathlib import Path
 
 from jupyter_server.base.handlers import APIHandler
 from .gitpuller import SyncHandlerBase
@@ -37,6 +38,24 @@ class GalleryHandler(BaseHandler):
 class ExhibitsHandler(BaseHandler):
     @tornado.web.authenticated
     def get(self):
+        self.finish(
+            json.dumps(
+                {
+                    "exhibits": [
+                        self._prepare_exhibit(exhibit_config, exhibit_id=i)
+                        for i, exhibit_config in enumerate(
+                            self.gallery_manager.exhibits
+                        )
+                    ]
+                }
+            )
+        )
+
+    @tornado.web.authenticated
+    def post(self):
+        data = self.get_json_body()
+        new_path = Path(data["new_path"])
+        updated_exhibits = self.gallery_manager.update_exhibit_paths(new_path)
         self.finish(
             json.dumps(
                 {

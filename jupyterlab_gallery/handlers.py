@@ -62,7 +62,7 @@ class ExhibitsHandler(BaseHandler):
                     "exhibits": [
                         self._prepare_exhibit(exhibit_config, exhibit_id=i)
                         for i, exhibit_config in enumerate(
-                            self.gallery_manager.exhibits
+                            updated_exhibits
                         )
                     ]
                 }

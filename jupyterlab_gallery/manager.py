@@ -83,7 +83,7 @@ class GalleryManager(LoggingConfigurable):
 
     clone_timeout = Int(
         help="Timeout for cloning a repository (in seconds)",
-        default_value=60,
+        default_value=15 * 60,
         config=True,
     )
 

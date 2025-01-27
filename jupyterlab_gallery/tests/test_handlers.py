@@ -45,17 +45,15 @@ async def test_exhibits_post(jp_fetch, exhibit):
             "isCloned": True,
         }
         return output
-    
-    with mock.patch.object(GalleryManager, "exhibits", [exhibit]):
-        with mock.patch.object(GalleryManager, "destination", Path("example")):
-            with mock.patch.object(GalleryManager, "get_exhibit_data", mocked_get_exhibit_data):
-                with mock.patch.object(Path, "exists", mocked_exists):
-                    response = await jp_fetch("jupyterlab-gallery", "exhibits", method="POST", body=json.dumps(update))
+    with mock.patch.multiple(GalleryManager, 
+                        exhibits=[exhibit],
+                        destination=Path("example"),
+                        get_exhibit_data=mocked_get_exhibit_data):
+        with mock.patch.object(Path, "exists", mocked_exists):
+            response = await jp_fetch("jupyterlab-gallery", "exhibits", method="POST", body=json.dumps(update))
     assert response.code == 200
     payload = json.loads(response.body)
-    breakpoint()
     assert payload["exhibits"][0]["localPath"] == "gallery"
-    assert False
 
 
 @pytest.mark.parametrize(
